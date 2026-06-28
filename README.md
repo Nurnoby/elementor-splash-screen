@@ -1,62 +1,106 @@
 # Elementor Splash Screen
 
-A lightweight fullscreen splash screen for Elementor websites built with pure CSS and JavaScript.
+A lightweight fullscreen splash screen for WordPress and Elementor built with pure CSS, JavaScript, and a small PHP hook.
 
-This project was created as a custom solution for **B Andrews** to replace the default Elementor Popup with a faster, smoother fullscreen intro experience. Instead of relying on the Popup Builder, the splash screen is displayed as a fullscreen overlay and can be dismissed using an **Enter** or **Skip** button, or automatically after a configurable delay.
+This project was created for **B Andrews** to replace the default Elementor Popup with a smoother, faster fullscreen splash experience while keeping the splash design fully editable in Elementor.
 
-## Features
+---
 
-- Fullscreen splash overlay
+# Features
+
+- Fullscreen splash screen
 - No Elementor Popup Builder
 - No page redirects
-- Pure CSS & JavaScript
-- Lightweight and easy to customize
+- Fully editable Elementor Template
+- Lightweight CSS & JavaScript
 - Enter & Skip buttons
-- Automatic close after a configurable delay
-- Scroll lock while the splash screen is active
-- Responsive design
+- Auto close after a configurable delay
 - Smooth fade-out animation
+- Scroll lock while the splash is active
+- Homepage only
+- Responsive
 
-## Project Structure
+---
+
+# Project Structure
 
 ```text
 elementor-splash-screen/
 │
-├── README.md
 ├── splash.css
-└── splash.js
+├── splash.js
+├── wpcode.php
+└── README.md
 ```
-
-## Requirements
-
-- WordPress
-- Elementor (Free or Pro)
-- WPCode Snippets Plugin (for JavaScript)
-- Elementor Custom CSS or WordPress Additional CSS
 
 ---
 
-# Installation
+# Requirements
 
-## 1. Create the Splash Section
+- WordPress
+- Elementor (Free or Pro)
+- WPCode Plugin
+- Elementor Saved Template
 
-Create a fullscreen Elementor Section or Container and place it at the top of your homepage.
+---
 
-Assign the following CSS ID:
+# Installation Guide
+
+## Step 1 — Create the Splash Screen
+
+Create your splash screen as an **Elementor Saved Template**.
+
+Dashboard
 
 ```text
-intro-screen
+Templates
+→ Saved Templates
 ```
 
-Assign the following CSS Classes:
+Design your splash exactly as you want.
 
-**Enter Button**
+Example:
+
+- Background Image
+- Logo
+- Title
+- Enter Button
+- Skip Button
+
+---
+
+## Step 2 — Get Template ID
+
+Open
+
+```text
+Templates
+→ Saved Templates
+```
+
+Locate your splash template.
+
+Example:
+
+```text
+Template ID
+
+1234
+```
+
+---
+
+## Step 3 — Button Classes
+
+Inside Elementor assign:
+
+### Enter Button
 
 ```text
 intro-enter
 ```
 
-**Skip Button**
+### Skip Button
 
 ```text
 intro-skip
@@ -64,55 +108,131 @@ intro-skip
 
 ---
 
-## 2. Install the JavaScript
+## Step 4 — Create PHP Snippet
 
-Open:
+Open
 
 ```text
 WPCode
-→ Code Snippets
-→ Add New
-→ JavaScript Snippet
+→ Add Snippet
+→ PHP Snippet
 ```
 
-Copy the contents of **splash.js**.
+Copy the contents of:
 
-Configure:
+```text
+wpcode.php
+```
+
+Replace
+
+```php
+1234
+```
+
+with your own Elementor Template ID.
+
+Settings
+
+- Auto Insert
+- Run Everywhere
+- Active
+
+---
+
+## Step 5 — Install CSS
+
+Open
+
+```text
+Appearance
+→ Customize
+→ Additional CSS
+```
+
+or
+
+```text
+Elementor
+→ Site Settings
+→ Custom CSS
+```
+
+Copy the contents of
+
+```text
+splash.css
+```
+
+**Important**
+
+Do **not** replace your existing CSS.
+
+Simply append the splash screen styles to the end of your existing stylesheet.
+
+---
+
+## Step 6 — Install JavaScript
+
+Open
+
+```text
+WPCode
+→ Add Snippet
+→ JavaScript
+```
+
+Copy
+
+```text
+splash.js
+```
+
+Settings
 
 - Auto Insert
 - Site Wide
 - Footer
-
-Save and Activate.
+- Active
 
 ---
 
-## 3. Install the CSS
+# How It Works
 
-Open one of the following:
+When the homepage loads:
 
-- Elementor → Site Settings → Custom CSS
-- Appearance → Customize → Additional CSS
+1. The PHP snippet injects the Elementor splash template before the page content.
+2. JavaScript locks page scrolling.
+3. Visitors see the splash screen immediately.
+4. Visitors can:
+   - Click **Enter**
+   - Click **Skip**
+   - Wait for the automatic timeout
 
-Copy the contents of **splash.css**.
-
-> **Important:** Do **not** delete or replace your existing website CSS. Simply append the splash screen styles to the end of the current stylesheet.
+5. The splash fades away.
+6. The homepage becomes fully interactive.
 
 ---
 
 # Customization
 
-## Change Auto Close Time
+## Auto Close
 
-Edit the following line inside **splash.js**:
+Inside
+
+```text
+splash.js
+```
+
+Locate
 
 ```javascript
 setTimeout(closeIntro, 8000);
 ```
 
-Examples:
+Examples
 
-| Time       | Value |
+| Delay      | Value |
 | ---------- | ----: |
 | 3 Seconds  |  3000 |
 | 5 Seconds  |  5000 |
@@ -123,11 +243,14 @@ Examples:
 
 ## Background
 
-The splash screen background can be customized directly in Elementor using:
+The background is managed directly in Elementor.
 
-- Solid Color
-- Gradient
+Supported:
+
 - Background Image
+- Background Color
+- Gradient
+- Video (optional)
 
 No JavaScript changes are required.
 
@@ -135,11 +258,44 @@ No JavaScript changes are required.
 
 # Notes
 
-- This project does **not** use Elementor Popup Builder.
-- No additional plugins are required except **WPCode Snippets** for loading the JavaScript.
-- Existing website CSS should remain unchanged.
-- Existing JavaScript should remain unchanged.
-- This implementation was designed specifically for the homepage of **https://bandrews.com/**.
+- Designed for **Homepage Only**.
+- Does **not** use Elementor Popup Builder.
+- Does **not** redirect visitors.
+- Existing website CSS should remain untouched.
+- Existing JavaScript should remain untouched.
+- The splash content remains fully editable in Elementor.
+- JavaScript is loaded through **WPCode Snippets**.
+- CSS is added using **Additional CSS** or **Elementor Site Settings**.
+
+---
+
+# Repository Contents
+
+| File       | Description                               |
+| ---------- | ----------------------------------------- |
+| splash.css | Splash screen styles                      |
+| splash.js  | Splash screen functionality               |
+| wpcode.php | PHP hook to inject the Elementor template |
+| README.md  | Installation guide                        |
+
+---
+
+# Tested With
+
+- WordPress 6+
+- Elementor Free
+- Elementor Pro
+- Hello Elementor Theme
+- WPCode Plugin
+- PHP 8+
+
+---
+
+# License
+
+MIT License
+
+You are free to use, modify, and distribute this project for personal or commercial WordPress projects.
 
 ---
 
@@ -149,12 +305,6 @@ No JavaScript changes are required.
 
 Senior WordPress Designer & Elementor Expert
 
-- Upwork: https://www.upwork.com/freelancers/mdnurnobi01
+**Upwork**
 
----
-
-# License
-
-This project is released under the **MIT License**.
-
-Feel free to use, modify, and distribute it in personal or commercial WordPress projects.
+https://www.upwork.com/freelancers/mdnurnobi01

@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const intro = document.getElementById("intro-screen");
+  const intro = document.getElementById("intro-overlay");
 
   if (!intro) return;
 
@@ -7,38 +7,34 @@ document.addEventListener("DOMContentLoaded", function () {
   document.documentElement.classList.add("intro-active");
   document.body.classList.add("intro-active");
 
+  let closed = false;
+
   function closeIntro() {
+    if (closed) return;
+
+    closed = true;
+
     intro.classList.add("hide");
 
     document.documentElement.classList.remove("intro-active");
     document.body.classList.remove("intro-active");
 
-    // Remove splash after animation
     setTimeout(function () {
       intro.remove();
-    }, 600);
+    }, 800);
   }
 
-  // ENTER button
-  document.querySelectorAll(".intro-enter").forEach(function (btn) {
-    btn.addEventListener("click", function (e) {
+  // Enter + Skip buttons
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest(".intro-enter") || e.target.closest(".intro-skip")) {
       e.preventDefault();
 
       closeIntro();
-    });
+    }
   });
 
-  // SKIP button
-  document.querySelectorAll(".intro-skip").forEach(function (btn) {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
+  // Auto close
 
-      closeIntro();
-    });
-  });
-
-  // Auto close after 8 seconds
-  setTimeout(function () {
-    closeIntro();
-  }, 15000);
+  setTimeout(closeIntro, 13000);
 });
